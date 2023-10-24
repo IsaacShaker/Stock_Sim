@@ -1,0 +1,64 @@
+SQL Database Schema
+-----------------------------------------------
+Table: Users
+
+id (primary id unique)
+username
+hash (hashed password for security)
+cash (default 10,000)
+
+table details (users);
+
+CREATE TABLE users (
+    id INTEGER NOT NULL,
+    username TEXT NOT NULL,
+    hash TEXT NOT NULL,
+    cash FLOAT NOT NULL, DEFAULT 10000
+    PRIMARY KEY (id),
+);
+
+-----------------------------------------------
+Table: Transactions
+
+id (primary id unique)
+user_id (as foreign key) will tell who did the transaction
+type (buy or sell)
+tikcer symbol
+shares (bought or sold)
+price per share
+time
+
+table details (transactions);
+
+CREATE TABLE transactions (
+    id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    type TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    shares INTEGER NOT NULL,
+    price_per_share FLOAT NOT NULL,
+    time TEXT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-----------------------------------------------
+Table: Stock Distributions
+
+id (primary id unique)
+user_id (as foreign key)
+ticker symbol
+average share price
+total shares
+
+table details (stock_distribution);
+
+CREATE TABLE stock_distribution (
+    id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    symbol TEXT NOT NULL,
+    shares INTEGER NOT NULL,
+    avg_share_price FLOAT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

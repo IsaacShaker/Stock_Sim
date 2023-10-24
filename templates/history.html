@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <h2>Transaction History</h2>
+    <hr>
+    <table style="margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr class="wieghted">
+                <td>Symbol</td>
+                <td>Shares</td>
+                <td>Price</td>
+                <td>Action</td>
+                <td>Time</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.symbol }}</td>
+                    <td>{{ transaction.shares }}</td>
+                    <td>{{ transaction.price_per_share | usd }}</td>
+                    {% if transaction.action == "sell" %}
+                        <td class="red">{{ transaction.action.capitalize() }}</td>
+                    {% else %}
+                        <td class="green">{{ transaction.action.capitalize() }}</td>
+                    {% endif %}
+                    <td>{{ transaction.time }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

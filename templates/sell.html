@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <form action="/search?html=sell.html" method="post">
+    <!-- <form action="/sell" method="post"> -->
+        <h2>Sell</h2>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" placeholder="Ex: AAPL" type="text">
+        </div>
+        <!-- <div class="mb-3">
+            <select name="symbol">
+                <option disabled selected>Stock</option>
+                {% for stock in stocks %}
+                    <option value="{{ stock.symbol }}">{{ stock.symbol }}</option>
+                {% endfor %}
+            </select>
+        </div> -->
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="# of shares" type="text">
+        </div>
+        <p>{{ response }}</p>
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    <hr>
+    <table style="margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr class="wieghted">
+                <td>Symbol</td>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Shares</td>
+                <td>Total Revenue</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ symbol }}</td>
+                <td>{{ name }}</td>
+                <td>{{ price }}</td>
+                <td>{{ shares }}</td>
+                <td>{{ total }}</td>
+                <td>
+                    {% if response == "" %}
+                        <form action="/sell" method="post">
+                            <input name="table-symbol" type="hidden" value="{{ symbol }}">
+                            <input name="table-shares" type="hidden" value="{{ shares }}">
+                            <button type="submit">Sell</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

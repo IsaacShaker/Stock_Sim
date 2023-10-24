@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+    <h2>Dashboard: Welcome Back {{ username }}</h2>
+    <hr>
+    <table style="margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr class="wieghted">
+                <td>Symbol</td>
+                <td>Name</td>
+                <td>Shares</td>
+                <td>Avg Purchase Price</td>
+                <td>P/L (per share)</td>
+                <td>Current Price</td>
+                <td>Total</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.shares }}</td>
+                    <td>{{ stock.avg_share_price | usd }}</td>
+                    {% if stock.pl >= 0 %}
+                        <td class="green">{{ stock.pl | usd }}</td>
+                    {% else %}
+                        <td class="red">{{ stock.pl | usd }}</td>
+                    {% endif %}
+                    <td>{{ stock.curr_price | usd}}</td>
+                    <td>{{ stock.total | usd}}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="wieghted">Cash</td>
+                <td>{{ cash | usd}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="wieghted">Total</td>
+                <td>{{ total | usd}}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
